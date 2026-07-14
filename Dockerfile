@@ -24,9 +24,12 @@ FROM python:${PYTHON_VERSION}-slim AS prod
 RUN groupadd --system app && useradd --system --gid app --home-dir /app app
 WORKDIR /app
 COPY --from=builder --chown=app:app /app/.venv /app/.venv
+RUN chown app:app /app
 ENV PATH="/app/.venv/bin:$PATH"
 USER app
 EXPOSE 8000
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD ["python", "-c", "import urllib.request, sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8000/health').status == 200 else 1)"]
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
 
 # --- dev: full toolchain, hot-reload; source bind-mounted at runtime ------

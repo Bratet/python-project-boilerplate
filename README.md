@@ -46,6 +46,9 @@ uv run uvicorn app.main:app --reload
 | `make build-prod` / `make run-prod` | Build / run the production image |
 | `make claude` | Run Claude Code with skipped permissions |
 
+> `make down` runs `docker compose down -v`, which also removes the named
+> `venv` volume — the next `make up` will reinstall dependencies from scratch.
+
 ## Layout
 
 - `app/main.py` — FastAPI app + `GET /health`. Start here.
