@@ -1,5 +1,7 @@
 .DEFAULT_GOAL := help
 COMPOSE := docker compose
+PYTHON_VERSION := $(shell cat .python-version 2>/dev/null || echo "3.13")
+export PYTHON_VERSION
 
 .PHONY: help install lint format typecheck test check hooks up down logs shell sync build-prod run-prod claude
 
@@ -45,7 +47,7 @@ sync:  ## Re-run uv sync inside the dev container (after dep changes)
 
 ## --- Production image ---
 build-prod:  ## Build the production image
-	docker build --target prod -t app:prod .
+	docker build --target prod --build-arg PYTHON_VERSION=$(PYTHON_VERSION) -t app:prod .
 
 run-prod:  ## Run the production image on :8000
 	docker run --rm -p 8000:8000 app:prod

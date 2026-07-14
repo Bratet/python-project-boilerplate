@@ -1,8 +1,10 @@
 from fastapi import FastAPI
 
-app = FastAPI(title="app")
+from app.config import settings
+
+app = FastAPI(title=settings.app_name)
 
 
 @app.get("/health")
 def health() -> dict[str, str]:
-    return {"status": "ok"}
+    return {"status": "ok", "environment": settings.app_env}
