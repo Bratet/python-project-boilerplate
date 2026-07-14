@@ -38,3 +38,7 @@ strict = true
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-q"
+filterwarnings = [
+    # Upstream: starlette's TestClient deprecates httpx in favor of httpx2. Not our code.
+    "ignore:Using `httpx` with `starlette.testclient` is deprecated",
+]
