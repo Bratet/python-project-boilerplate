@@ -1,5 +1,10 @@
 # python-project-boilerplate
 
+> **This is a template repository.** Clone it as the starting point for a new project,
+> then update `pyproject.toml`, `README.md`, `AGENTS.md`, `LICENSE`, `.python-version`,
+> and `.env.example` to match your project's identity. See `AGENTS.md` for the full
+> checklist.
+
 A FastAPI project boilerplate with `uv`-managed dependencies and a best-practice
 multi-stage Docker setup (dev + prod). Write your logic in `app/`; the runtime,
 dependencies, containerization, and quality tooling are already wired.
